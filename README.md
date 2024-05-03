@@ -90,7 +90,7 @@ for Text-to-SQL
 
 ## SQL settings
 
-Most software which utilizes databases like MySQL, MariaDB, and PostgreSQL expect to have a persistent always-online database server available to use. Kamiak does not provide server hosting and as such cannot host these persistent database instances. In order to run software on our cluster which needs a database server we have two options:
+Most software which utilizes databases like MySQL, MariaDB, and PostgreSQL expect to have a persistent always-online database server available to use. Many HPC clusters does not provide server hosting and as such cannot host these persistent database instances. In order to run software on our cluster which needs a database server we have two options:
 
 1. Host a database server elsewhere and access it from HPC cluster
 2. Run our own database server as a compute job on HPC cluster
