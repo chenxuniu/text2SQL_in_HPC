@@ -78,3 +78,26 @@ for Text-to-SQL
 [[paper](https://arxiv.org/pdf/1711.04436.pdf)]
 [[code](https://github.com/xiaojunxu/SQLNet)]
 [![](https://img.shields.io/badge/WikiSQL-green)](https://github.com/salesforce/WikiSQL/blob/master/README.md)
+
+
+## Datasets
+
+- WikiSQL. This WikiSQL dataset encompasses a dataset of 80654 meticulously crafted pairs of natural language questions and SQL queries, derived from 24241 HTML tables sourced from Wikipedia. Each table underpins the generation of six SQL queries, adhering to predefined templates and guidelines. Subsequently, for every SQL query, a rudimentary natural language question is formulated employing templates and is annotated via Amazon Mechanical Turk. 
+- GenQuery. The dataset GenQuery comprises 880 natural language queries designed for interrogating a database that encapsulates geographical information pertinent to the United States.
+- Spider. The Spider dataset represents a substantial benchmark within the cross-domain text2SQL methods, comprising 10181 natural language questions and 5693 unique SQL queries that traverse 200 databases across 138 distinct domains. Unlike previous text2SQL datasets that were confined to singular domains, Spider showcases complex natural language questions and SQL queries across a diverse array of databases and domains. 
+- SDSS. The Sloan Digital Sky Survey (SDSS) dataset, enriched with a collection of 65 natural language questions paired with their corresponding SQL queries, is an extensive resource derived from the Skyserver website, which is part of the SDSS online portal. These pairs are meticulously organized across 12 distinct tables, offering a broad spectrum of queryable astronomical data. The SQL queries within this dataset are constructed based on predefined templates available on the Skyserver platform, ensuring a structured and consistent approach to data retrieval. 
+
+
+## SQL settings
+
+Most software which utilizes databases like MySQL, MariaDB, and PostgreSQL expect to have a persistent always-online database server available to use. Kamiak does not provide server hosting and as such cannot host these persistent database instances. In order to run software on our cluster which needs a database server we have two options:
+
+1. Host a database server elsewhere and access it from HPC cluster
+2. Run our own database server as a compute job on HPC cluster
+
+Option 1 is the most straightforward approach but requires you to acquire server hosting, build our own database server/instance, and maintain it.  Off-site or “cloud” services can be utilized for this purpose but may not provide adequate performance for intense workloads.  Virtual server hosting is available.  
+
+Option 2 is a more complex approach.  In order to do this we will need to develop a workflow that includes starting a database server within your job, running our software which utilizes the server, then shutting down the database server when the job ends. 
+
+For example, flush transactions and gracefully stop the database server when the job unexpectedly ends by being canceled (time limit, preemption, etc).  We will also need to be careful not to under-provision or over-provision resources for our database job as much as is feasible (i.e. limit the threads/cores the server can utilize to match what the job requests).
+
